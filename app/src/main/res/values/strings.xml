@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Crime Scene</string>
+    <string name="home">Home</string>
+    <string name="investigate">Investigate</string>
+    <string name="reference">Reference</string>
+    <string name="tips">Tips</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="guide">Guide</string>
+    <string name="guides_description">Quick guides.</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="welcome">Welcome to the Crime Scene</string>
+    <string name="first_time_user"><u>First time user? Begin </u></string>
+</resources>
