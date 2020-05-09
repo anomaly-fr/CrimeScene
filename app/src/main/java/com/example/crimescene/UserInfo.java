@@ -8,7 +8,7 @@ public class UserInfo {
     private String fullName;
     private String nickName;
     private String emailID;
-    private Boolean isCop;
+    private String isCop;
     private Uri displayPicture;
 
     public static UserInfo getInstance() {
@@ -22,11 +22,11 @@ public class UserInfo {
 
     private UserInfo() {}
 
-    public Boolean getCop() {
+    public String getCop() {
         return isCop;
     }
 
-    public void setCop(Boolean cop) {
+    public void setCop(String cop) {
         isCop = cop;
     }
 

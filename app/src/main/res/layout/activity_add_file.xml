@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:padding="8dp"
+    tools:context=".AddFileActivity">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Add a new Case File"
+        android:textAlignment="center"
+        android:textColor="@color/colorSecondary"
+        android:textSize="28sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="108dp"
+        android:hint="Add case title/number"
+        android:textColorHint="@color/colorSecondary"
+        app:layout_constraintBottom_toTopOf="@+id/main_ll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/choose_murder"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/crimechoose_shape"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_murder"
+
+            app:civ_border_width="2dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/choose_fraud"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/fraud_shape"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@id/choose_murder"
+        app:layout_constraintTop_toBottomOf="@+id/editText2">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_fraud" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/choose_missing"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/treachures_shape"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/choose_horrid"
+        app:layout_constraintTop_toBottomOf="@+id/editText2">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_missing" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/choose_horrid"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="96dp"
+        android:background="@drawable/horrid_shape"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_width="34dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_sexual" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_ll"
+
+        android:layout_width="match_parent"
+        android:layout_height="490dp"
+        android:background="@color/murderous_red"
+        android:gravity="center"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/white_ll"
+            android:layout_width="match_parent"
+            android:layout_height="420dp"
+
+
+            android:background="@drawable/curved_rectangle_white"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/title_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/murder_kidanapping_or_similar_case"
+                android:textColor="@color/murderous_red"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/addpic_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+
+
+                android:background="@drawable/circle"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_addpic" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Add sketch/photograph."
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/record_icon"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/circle"
+
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_record" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Add voice recording."
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/other_icon"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/circle"
+
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_other" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Add other resources."
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

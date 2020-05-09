@@ -8,8 +8,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="guide">Guide</string>
-    <string name="guides_description">Quick guides.</string>
+    <string name="guides_description">Quick guides</string>
     <string name="sign_out">Sign Out</string>
     <string name="welcome">Welcome to the Crime Scene</string>
     <string name="first_time_user"><u>First time user? Begin </u></string>
+    <string name="samle_text">Hey, so I had this query. I killed my neighbour by accident. Is it a crime?</string>
+    <string name="chat_hint">Voice your concern</string>
+    <string name="post">POST</string>
+    <string name="anonymous"> Anonymous?</string>
+    <string name="anonymously">Anonymous.</string>
+    <string name="murder_kidanapping_or_similar_case">Murder, Kidanapping or similar case</string>
 </resources>

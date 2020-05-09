@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/message_content"
+
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/civilian_chatbubble"
+        android:fontFamily="@font/roboto"
+        android:inputType="textMultiLine"
+
+        android:paddingLeft="10dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+
+        android:text="@string/samle_text"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.566" />
+
+    <TextView
+        android:id="@+id/from_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="anam"
+        android:textColor="@color/colorSecondary"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toTopOf="@+id/message_content"
+        app:layout_constraintEnd_toEndOf="@+id/message_content"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/message_content" />
+
+    <TextView
+        android:id="@+id/invis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="In reply to "
+        android:textColor="@color/colorPrimary"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        android:visibility="visible"
+
+        app:layout_constraintBottom_toTopOf="@+id/message_content"
+        app:layout_constraintEnd_toEndOf="@+id/message_content"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/message_content" />
+
+    <TextView
+        android:id="@+id/message_date"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="19/04/2020"
+        android:textSize="10dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/message_content"
+        app:layout_constraintTop_toBottomOf="@+id/message_content" />
+
+    <ImageView
+        android:id="@+id/reply_button"
+        android:layout_width="20dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_reply_black_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/message_content"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/message_time"
+        app:layout_constraintTop_toTopOf="@+id/message_time" />
+
+    <TextView
+        android:id="@+id/message_time"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="20:06"
+        android:textAlignment="viewEnd"
+        android:textSize="10dp"
+
+        app:layout_constraintEnd_toEndOf="@+id/message_content"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message_content" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
