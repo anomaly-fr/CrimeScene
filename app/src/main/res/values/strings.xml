@@ -18,4 +18,8 @@
     <string name="anonymous"> Anonymous?</string>
     <string name="anonymously">Anonymous.</string>
     <string name="murder_kidanapping_or_similar_case">Murder, Kidanapping or similar case</string>
+    <string name="add_notes">Add notes.</string>
+    <string name="add_sketch_photograph">Add sketch/photograph.</string>
+    <string name="add_a_new_case_file">Add a new Case File</string>
+    <string name="add_case_title_number">Add case title/number</string>
 </resources>

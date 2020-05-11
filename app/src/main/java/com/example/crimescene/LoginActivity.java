@@ -2,6 +2,7 @@ package com.example.crimescene;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private AlertDialog dialog;
  private CoordinatorLayout coordinatorLayout;
  private TextView beginTextView;
+ SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInOptions googleSignInOptions =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
+        sharedPreferences = getSharedPreferences("Logged in",MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("Logged in",false)){
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        }
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +141,8 @@ public class LoginActivity extends AppCompatActivity {
         userInfo.setNickName(username);
         userInfo.setEmailID(email);
         userInfo.setDisplayPicture(image);
+
+        sharedPreferences.edit().putBoolean("Logged in",true).apply();
 
 
       //  Toast.makeText(getApplicationContext(),"Hey, "+personname,Toast.LENGTH_SHORT).show();

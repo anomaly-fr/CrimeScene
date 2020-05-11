@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class AddFileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -53,7 +54,7 @@ public class AddFileActivity extends AppCompatActivity implements View.OnClickLi
         chooseMissing.setElevation(0);
         chooseFraud.setElevation(0);
 
-        LinearLayout main = findViewById(R.id.main_ll);
+       RelativeLayout main = findViewById(R.id.main_ll);
         main.setElevation(8);
         main.setBackgroundColor(getColor(R.color.murderous_red));
 
@@ -79,7 +80,7 @@ public class AddFileActivity extends AppCompatActivity implements View.OnClickLi
         chooseFraud.setElevation(8);
 
 
-        LinearLayout main = findViewById(R.id.main_ll);
+        RelativeLayout main = findViewById(R.id.main_ll);
         main.setBackgroundColor(getColor(R.color.fraudulent_green));
         main.setElevation(8);
 
@@ -103,7 +104,7 @@ public class AddFileActivity extends AppCompatActivity implements View.OnClickLi
         chooseMissing.setElevation(8);
         chooseFraud.setElevation(0);
 
-        LinearLayout main = findViewById(R.id.main_ll);
+      RelativeLayout main = findViewById(R.id.main_ll);
         main.setBackgroundColor(getColor(R.color.treachurous_yellow));
         main.setElevation(8);
 
@@ -128,7 +129,7 @@ public class AddFileActivity extends AppCompatActivity implements View.OnClickLi
         chooseFraud.setElevation(0);
 
 
-        LinearLayout main = findViewById(R.id.main_ll);
+        RelativeLayout main = findViewById(R.id.main_ll);
         main.setBackgroundColor(getColor(R.color.horrid_pink));
         main.setElevation(8);
 
