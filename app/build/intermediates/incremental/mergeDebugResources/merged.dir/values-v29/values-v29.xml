@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="folder_label" translatable="false">@string/internal_folders</string>
-    <string name="sd_card_label" translatable="false">@string/external_storage_and_folder</string>
-</resources>
