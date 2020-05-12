@@ -1,9 +1,7 @@
 package com.example.crimescene;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -47,7 +45,6 @@ public class HomeFragment extends Fragment {
     private CircularImageView profilepictureImageView;
     private FirebaseFirestore userDatabase = FirebaseFirestore.getInstance();
     private CollectionReference reference = userDatabase.collection("Users");
-    SharedPreferences sp;
 
     FirebaseAuth firebaseAuth;
     GoogleSignInClient googleSignInClient;
@@ -62,7 +59,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_layout, container, false);
-        sp = getActivity().getSharedPreferences("Logged in", Context.MODE_PRIVATE);
+
         firebaseAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions googleSignInOptions =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
@@ -81,12 +78,9 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getActivity(), "Signed out successfully", Toast.LENGTH_SHORT).show();
-
                         getActivity().finish();
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);
-
-                        sp.edit().putBoolean("Logged in",false).apply();
                     }
                 });
 
@@ -99,29 +93,29 @@ public class HomeFragment extends Fragment {
 
         Glide.with(getActivity()).load(userInfo.getDisplayPicture()).into(profilepictureImageView);
 
-        Task<QuerySnapshot> query = reference.whereEqualTo("EmailID", UserInfo.getInstance().getEmailID()).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful())
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                                if (documentSnapshot.exists()) {
-                                    String s = documentSnapshot.getString("IsACop");
-                                    UserInfo.getInstance().setCop(s);
-
-                                }else{
-                                //    Toast.makeText(getContext(),"NO USER",3000).show();
-                                }
-                            }
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-              //          Toast.makeText(getContext(),"fail",3000).show();
-
-                    }
-                });
+//        Task<QuerySnapshot> query = reference.whereEqualTo("EmailID", UserInfo.getInstance().getEmailID()).get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful())
+//                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+//                                if (documentSnapshot.exists()) {
+//                                    String s = documentSnapshot.getString("IsACop");
+//                                    UserInfo.getInstance().setCop(s);
+//
+//                                }else{
+//                                //    Toast.makeText(getContext(),"NO USER",3000).show();
+//                                }
+//                            }
+//
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//              //          Toast.makeText(getContext(),"fail",3000).show();
+//
+//                    }
+//                });
         return view;
     }
 
