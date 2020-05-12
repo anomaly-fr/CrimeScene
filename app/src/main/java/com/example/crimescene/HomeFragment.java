@@ -1,7 +1,9 @@
 package com.example.crimescene;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,6 +47,7 @@ public class HomeFragment extends Fragment {
     private CircularImageView profilepictureImageView;
     private FirebaseFirestore userDatabase = FirebaseFirestore.getInstance();
     private CollectionReference reference = userDatabase.collection("Users");
+    SharedPreferences sharedPreferences;
 
     FirebaseAuth firebaseAuth;
     GoogleSignInClient googleSignInClient;
@@ -69,6 +72,7 @@ public class HomeFragment extends Fragment {
         nicknameTextView = view.findViewById(R.id.greeting_TV);
         tagTextView = view.findViewById(R.id.tag_TV);
         profilepictureImageView = view.findViewById(R.id.displaypic_IV);
+        sharedPreferences = getActivity().getSharedPreferences("Login Shared Preference", Context.MODE_PRIVATE);
         signoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +82,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(getActivity(), "Signed out successfully", Toast.LENGTH_SHORT).show();
+                  //      sharedPreferences.edit().putBoolean("Is logged in",false).apply();
                         getActivity().finish();
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         startActivity(intent);

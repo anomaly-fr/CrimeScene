@@ -2,6 +2,7 @@ package com.example.crimescene;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private AlertDialog dialog;
  private CoordinatorLayout coordinatorLayout;
  private TextView beginTextView;
+ SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,14 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInOptions googleSignInOptions =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
+        sharedPreferences = getSharedPreferences("Login Shared Preference",MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("Is logged in",false)) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            Toast.makeText(this, "logged", Toast.LENGTH_SHORT).show();
+
+        }else{
+            Toast.makeText(this, "no preference found", Toast.LENGTH_SHORT).show();
+        }
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +99,13 @@ public class LoginActivity extends AppCompatActivity {
 
             // Signed in successfully, show authenticated UI.
             FirebaseGoogleAuth(account);
+
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Name",account.getDisplayName());
+            editor.putString("Email",account.getEmail());
+            editor.putBoolean("Is logged in",true);
+
 
            // updateUI(account);
         } catch (ApiException e) {
