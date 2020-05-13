@@ -24,6 +24,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
@@ -31,6 +33,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.android.material.snackbar.Snackbar.*;
 
@@ -40,8 +47,13 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private int RC_SIGN_IN = 1;
     private AlertDialog dialog;
+    private static final String KEY_EMAIL = "Email";
+    private static final String KEY_DESIGNATION = "Designation";
+ public static GoogleSignInAccount account;
  private CoordinatorLayout coordinatorLayout;
  private TextView beginTextView;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
  SharedPreferences sharedPreferences;
 
     @Override
@@ -58,10 +70,10 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("Login Shared Preference",MODE_PRIVATE);
         if(sharedPreferences.getBoolean("Is logged in",false)) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            Toast.makeText(this, "logged", Toast.LENGTH_SHORT).show();
+
 
         }else{
-            Toast.makeText(this, "no preference found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No Shared Preference found", Toast.LENGTH_SHORT).show();
         }
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
             FirebaseGoogleAuth(account);
@@ -105,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("Name",account.getDisplayName());
             editor.putString("Email",account.getEmail());
             editor.putBoolean("Is logged in",true);
+
+            editor.apply();
 
 
            // updateUI(account);
@@ -153,8 +167,28 @@ public class LoginActivity extends AppCompatActivity {
         userInfo.setEmailID(email);
         userInfo.setDisplayPicture(image);
 
+//        Map<String,Object> designation = new HashMap<>();
+//        designation.put(KEY_EMAIL,UserInfo.getInstance().getEmailID());
+//        designation.put(KEY_DESIGNATION,"NOT SET");
+        Designation designation = new Designation(UserInfo.getInstance().getEmailID(),"NOT SET");
 
-      //  Toast.makeText(getApplicationContext(),"Hey, "+personname,Toast.LENGTH_SHORT).show();
+        firebaseFirestore.collection("User Designations").add(designation)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error saving designation", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getApplicationContext(), "Designation Saved", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
+        //  Toast.makeText(getApplicationContext(),"Hey, "+personname,Toast.LENGTH_SHORT).show();
         finish();
         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);

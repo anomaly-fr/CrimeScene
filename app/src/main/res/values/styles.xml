@@ -17,4 +17,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Alert_style">
+        <item name="textAllCaps">false</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
 </resources>
