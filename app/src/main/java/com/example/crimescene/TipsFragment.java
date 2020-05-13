@@ -82,6 +82,17 @@ public class TipsFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 String messageContent = newChatEditText.getText().toString();
+                if (messageContent.equals("")) {
+                    Toast.makeText(getActivity(), "Message cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                messageContent = messageContent.trim();
+                if (messageContent.equals("")) {
+                    newChatEditText.setText("");
+                    Toast.makeText(getActivity(), "Enter a Message", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                newChatEditText.setText("");
                 final String fromWhom;
 
                 String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
