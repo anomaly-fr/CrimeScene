@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -39,6 +40,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mainPager.addOnPageChangeListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home_item);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+       Intent exit = new Intent(Intent.ACTION_MAIN);
+       exit.addCategory(Intent.CATEGORY_HOME);
+       exit.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(exit);
     }
 
     @Override
@@ -117,4 +126,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return 4;
         }
     }
+
 }
