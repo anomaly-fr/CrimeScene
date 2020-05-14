@@ -65,7 +65,8 @@ public class LoginActivity extends AppCompatActivity {
      //   beginTextView = findViewById(R.id.begin_TV);
         signInButton = findViewById(R.id.google_signin);
         GoogleSignInOptions googleSignInOptions =
-                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
         sharedPreferences = getSharedPreferences("Login Shared Preference",MODE_PRIVATE);
         if(sharedPreferences.getBoolean("Is logged in",false)) {
@@ -106,30 +107,36 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            account = completedTask.getResult(ApiException.class);
+        if(completedTask.isSuccessful()) {
+            try {
+                account = completedTask.getResult(ApiException.class);
 
-            // Signed in successfully, show authenticated UI.
-            FirebaseGoogleAuth(account);
-
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Name",account.getDisplayName());
-            editor.putString("Email",account.getEmail());
-            editor.putBoolean("Is logged in",true);
-
-            editor.apply();
+                // Signed in successfully, show authenticated UI.
+                assert account != null;
+                FirebaseGoogleAuth(account);
 
 
-           // updateUI(account);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("Failed to authenticate", "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(this,"Failed to authenticate",Toast.LENGTH_LONG).show();
-            FirebaseGoogleAuth(null);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Name", account.getDisplayName());
+                editor.putString("Email", account.getEmail());
+                editor.putBoolean("Is logged in", true);
 
-            //updateUI(null);
+                editor.apply();
+
+
+                // updateUI(account);
+            } catch (ApiException e) {
+                // The ApiException status code indicates the detailed failure reason.
+                // Please refer to the GoogleSignInStatusCodes class reference for more information.
+                Log.w("Failed to authenticate", "signInResult:failed code=" + e.getStatusCode());
+                Toast.makeText(this, "Failed to authenticate", Toast.LENGTH_LONG).show();
+                FirebaseGoogleAuth(null);
+
+                //updateUI(null);
+            }
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Add fancy message here",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -145,7 +152,8 @@ public class LoginActivity extends AppCompatActivity {
 //                   Snackbar = Snackbar.make(findViewById(android.R.id.content),"Ok",Snackbar.LENGTH_SHORT).show();
                    FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                     UpdateUI(currentUser);
-                }else{
+                }
+                else{
                     Toast.makeText(getApplicationContext(),"Failed to authenticate",Toast.LENGTH_LONG).show();
                     UpdateUI(null);
 

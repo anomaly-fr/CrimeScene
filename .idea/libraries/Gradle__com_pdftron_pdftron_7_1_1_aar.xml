@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.pdftron:pdftron:7.1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a35ae816458c7b3318b5033b880abce0/jetified-pdftron-7.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a35ae816458c7b3318b5033b880abce0/jetified-pdftron-7.1.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a35ae816458c7b3318b5033b880abce0/jetified-pdftron-7.1.1/jars/libs/PDFNet.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/73a5bded5b31a680b0d2aed7b6221224/jetified-pdftron-7.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/73a5bded5b31a680b0d2aed7b6221224/jetified-pdftron-7.1.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/73a5bded5b31a680b0d2aed7b6221224/jetified-pdftron-7.1.1/jars/libs/PDFNet.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

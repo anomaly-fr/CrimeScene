@@ -22,4 +22,6 @@
     <string name="add_sketch_photograph">Add sketch/photograph.</string>
     <string name="add_a_new_case_file">Add a new Case File</string>
     <string name="add_case_title_number">Add case title/number</string>
+    <string name="incoming_call">damsel</string>
+    <string name="incoming_call_text">in distress</string>
 </resources>
