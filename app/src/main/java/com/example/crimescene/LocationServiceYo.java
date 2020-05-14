@@ -124,5 +124,7 @@ public class LocationServiceYo extends Service implements LocationListener {
         public void setGeoPoint(GeoPoint geoPoint) {
             this.geoPoint = geoPoint;
         }
+
+        //TODO emergency Pojo
     }
 }
