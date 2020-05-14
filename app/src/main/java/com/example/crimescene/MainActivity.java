@@ -13,11 +13,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
     BottomNavigationView bottomNavigationView;
     MainPagerAdapter pagerAdapter;
     ViewPager mainPager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
         //Fragment homeFragment = new HomeFragment();
         //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,homeFragment).commit();
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         mainPager= findViewById(R.id.pager);
         pagerAdapter= new MainPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.POSITION_UNCHANGED);

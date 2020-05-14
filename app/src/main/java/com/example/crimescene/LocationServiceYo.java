@@ -14,11 +14,13 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.widget.Toast;
 
-import androidx.core.app.NotificationCompat;
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
@@ -26,7 +28,7 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LocationServiceYo extends Service implements LocationListener {
+public class LocationServiceYo extends Service implements LocationListener, OnCompleteListener<Void> {
 
     LocationManager locationManager;
     GeoPoint geoPoint;
@@ -44,7 +46,7 @@ public class LocationServiceYo extends Service implements LocationListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(intent.getAction().equals(Con.EMERGENCY_START)){
+        if(intent.getAction().equals(Doms.EMERGENCY_START)){
 
             locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
             if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
@@ -57,11 +59,10 @@ public class LocationServiceYo extends Service implements LocationListener {
                 NotificationChannel notificationChannel= new NotificationChannel("emergency","Emergency obviously", NotificationManager.IMPORTANCE_LOW);
                 notificationChannel.setVibrationPattern(new long[]{1000L, 1000L, 1000L}); //TODO same, beautify notif
                 ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).createNotificationChannel(notificationChannel);
-                Notification notification= new Notification.Builder(this)  // TODO beautify notif
+                Notification notification= new Notification.Builder(this,"emergency")  // TODO beautify notif
                         .setContentTitle("trackin")
                         .setContentText("backup in no time")
-                        .setContentIntent(PendingIntent.getActivity(this,0,new Intent(this,Sauce.class),0))//pls Don't remove this
-                        .setChannelId("emergency")
+                        .setContentIntent(PendingIntent.getActivity(this,0,new Intent(this,Sauce.class),PendingIntent.FLAG_ONE_SHOT))//pls Don't remove this
                         .build();
                 startForeground(69,notification);
             }
@@ -77,6 +78,15 @@ public class LocationServiceYo extends Service implements LocationListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
+                .delete()
+                .addOnCompleteListener(this);
+    }
+
+    @Override
+    public void onComplete(@NonNull Task<Void> task) {
+        if(task.isSuccessful())
+            Toast.makeText(this, "dayum", Toast.LENGTH_SHORT).show();
     }
 
     @Override
