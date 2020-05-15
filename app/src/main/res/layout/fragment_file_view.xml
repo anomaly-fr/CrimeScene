@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Case Name"
+        android:layout_below="@id/indicator"
+        android:id="@+id/case_title"
+        android:fontFamily="@font/heebo_bold"
+        android:textColor="@color/colorPrimary"
+
+        android:textAlignment="center"
+        android:textSize="22sp"/>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/case_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:id="@+id/view_pager_file"/>
+    <com.rd.PageIndicatorView
+        android:layout_marginTop="5dp"
+        app:piv_selectedColor="@color/colorPrimary"
+        app:piv_unselectedColor="@color/dark_gray"
+        app:piv_radius="4dp"
+        android:id="@+id/indicator"
+
+
+
+        android:layout_width="wrap_content"
+        app:piv_animationType="scale"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>

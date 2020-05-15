@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".CaseNotesFragment">
+
+    <TextView
+        android:textColor="@color/colorSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/heebo_bold"
+        android:text="Recordings"
+        android:id="@+id/notes"
+        android:textAlignment="center"
+        android:textSize="25sp" />
+    <TextView
+        android:layout_centerInParent="true"
+        android:padding="8dp"
+
+        android:textAlignment="center"
+        android:text="No audios added"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notes"
+
+        android:id="@+id/notes_case"/>
+</RelativeLayout>

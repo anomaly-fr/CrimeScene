@@ -7,6 +7,7 @@ public class UserInfo {
 
     private String fullName;
     private String nickName;
+    private String currentFile,note;
     private String emailID;
     private Boolean isCop;
     private Uri displayPicture;
@@ -22,12 +23,28 @@ public class UserInfo {
 
     private UserInfo() {}
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public Boolean getCop() {
         return isCop;
     }
 
     public void setCop(Boolean cop) {
         isCop = cop;
+    }
+
+    public String getCurrentFile() {
+        return currentFile;
+    }
+
+    public void setCurrentFile(String currentFile) {
+        this.currentFile = currentFile;
     }
 
     public Uri getDisplayPicture() {
