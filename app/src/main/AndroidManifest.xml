@@ -26,14 +26,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Sauce"
-            android:icon="@mipmap/ic_launcher_round"
-            android:label="HELP">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <service android:name=".AssistantService"/>
+
+        <activity android:name=".Sauce"/>
+
         <activity android:name=".AddFileActivity" />
         <activity android:name=".MainActivity" />
 
@@ -47,7 +43,7 @@
             android:theme="@style/CustomAppTheme"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".LoginActivity"
-            android:label="LoginActivity">
+            android:label="Crime Scene">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
