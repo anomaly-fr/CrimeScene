@@ -1,17 +1,36 @@
 package com.example.crimescene;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddFileActivity extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout chooseMurder, chooseFraud, chooseMissing, chooseAssault;
+    private Button saveCase;
+    private EditText fileName,fileNotes;
+    int caseType = 1;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +40,63 @@ public class AddFileActivity extends AppCompatActivity implements View.OnClickLi
         chooseFraud = findViewById(R.id.choose_fraud);
         chooseMissing = findViewById(R.id.choose_missing);
         chooseAssault = findViewById(R.id.choose_horrid);
+        saveCase = findViewById(R.id.save_case);
+        fileName = findViewById(R.id.file_name);
+        fileNotes = findViewById(R.id.case_note_ET);
         chooseMurder.setOnClickListener(this);
         chooseFraud.setOnClickListener(this);
         chooseMissing.setOnClickListener(this);
         chooseAssault.setOnClickListener(this);
+        saveCase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fileName.getText().toString().isEmpty()){
+                    Toast.makeText(AddFileActivity.this, "Enter a name for the file", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                saveNewCase();
+
+            }
+
+            private void saveNewCase() {
+                final String caseTitle = fileName.getText().toString().trim();
+                String caseNotes = fileNotes.getText().toString().trim();
+                String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                String time = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+                String time1 = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
+                String order = date.concat(time1);
+
+                Case newCase = new Case(caseTitle,caseType,order);
+//                if(!caseNotes.isEmpty()){
+//                    newCase.setCaseInfo(caseNotes);
+//                //    UserInfo.getInstance().setNote(caseNotes);
+//                }else{
+//                    newCase.setCaseInfo("");
+//                  //  UserInfo.getInstance().setNote("");
+//                }
+
+                CollectionReference reference = db.collection("User Cases")
+                        .document(UserInfo.getInstance().getEmailID()).collection("Cases");
+                reference.add(newCase)
+                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                Toast.makeText(AddFileActivity.this, String.format("Case %s added", caseTitle), Toast.LENGTH_SHORT).show();
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddFileActivity.this, "Failed to add case", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                finish();
+
+
+            }
+        });
 
 
     }
@@ -33,17 +105,22 @@ public class AddFileActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.choose_murder:
+                caseType = 1;
                 updateMurderUI();
                 break;
             case R.id.choose_fraud:
+                caseType = 2;
                 updateFraudUI();
                 break;
             case R.id.choose_missing:
+                caseType = 3;
                 updateMissingUI();
                 break;
             case R.id.choose_horrid:
+                caseType = 4;
                 updateAssaultUI();
                 break;
+
         }
 
     }

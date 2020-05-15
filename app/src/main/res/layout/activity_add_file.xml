@@ -236,10 +236,12 @@
                     android:textColor="@color/colorSecondary"
                     android:textStyle="bold" />
                 <EditText
+                    android:id="@+id/case_note_ET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"/>
                 <Button
+                    android:id="@+id/save_case"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
