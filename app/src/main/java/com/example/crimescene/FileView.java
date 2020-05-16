@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.crimescene.adapters.ViewPagerAdapter;
+import com.example.crimescene.fragments.CaseNotesFragment;
+import com.example.crimescene.fragments.CasePhotosFragment;
+import com.example.crimescene.fragments.CaseRecordingsFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.rd.PageIndicatorView;
 
@@ -35,7 +39,7 @@ public class FileView extends BottomSheetDialogFragment {
         viewPager = view.findViewById(R.id.view_pager_file);
         title = view.findViewById(R.id.case_title);
         title.setText(UserInfo.getInstance().getCurrentFile());
-        ViewPagerAdapter adapter = new com.example.crimescene.ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         adapter.addFragment(new CaseNotesFragment());
         adapter.addFragment(new CaseRecordingsFragment());
         adapter.addFragment(new CasePhotosFragment());

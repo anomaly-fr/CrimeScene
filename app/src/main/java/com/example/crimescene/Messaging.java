@@ -12,6 +12,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.example.crimescene.activities.SauceResponse;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -44,7 +45,7 @@ public class Messaging extends FirebaseMessagingService {
                     Notification notification = new Notification.Builder(getApplicationContext(),"sos")
                             .setContentTitle(getString(R.string.incoming_call))
                             .setContentText(getString(R.string.incoming_call_text))
-                            .setContentIntent(PendingIntent.getActivity(getApplicationContext(),69,new Intent(getApplicationContext(),SauceResponse.class),PendingIntent.FLAG_ONE_SHOT))
+                            .setContentIntent(PendingIntent.getActivity(getApplicationContext(),69,new Intent(getApplicationContext(), SauceResponse.class),PendingIntent.FLAG_ONE_SHOT))
                             .build();
                     notificationManager.notify((int)System.currentTimeMillis(),notification);
 

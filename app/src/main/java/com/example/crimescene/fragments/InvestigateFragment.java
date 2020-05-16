@@ -1,4 +1,4 @@
-package com.example.crimescene;
+package com.example.crimescene.fragments;
 
 
 import android.content.Intent;
@@ -11,15 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.crimescene.activities.AddFileActivity;
+import com.example.crimescene.Case;
+import com.example.crimescene.adapters.CaseAdapter;
+import com.example.crimescene.FileView;
+import com.example.crimescene.R;
+import com.example.crimescene.UserInfo;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.auth.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +50,7 @@ public class InvestigateFragment extends Fragment {
         addFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),AddFileActivity.class));
+                startActivity(new Intent(getActivity(), AddFileActivity.class));
             }
         });
         Query query =firebaseFirestore.collection("User Cases")

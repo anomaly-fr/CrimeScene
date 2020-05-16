@@ -1,21 +1,21 @@
-package com.example.crimescene;
+package com.example.crimescene.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.crimescene.Case;
+import com.example.crimescene.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.pdftron.pdf.annots.Line;
 
 public class CaseAdapter extends FirestoreRecyclerAdapter <Case,CaseAdapter.CaseViewHolder> {
     private Context theContext;

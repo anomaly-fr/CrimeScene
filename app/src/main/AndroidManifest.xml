@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SauceResponse"></activity>
+        <activity android:name=".activities.SauceResponse"></activity>
 
         <service
             android:name=".LocationServiceYo"
@@ -28,10 +28,10 @@
 
         <service android:name=".AssistantService"/>
 
-        <activity android:name=".Sauce"/>
+        <activity android:name=".activities.Sauce"/>
 
-        <activity android:name=".AddFileActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activities.AddFileActivity" />
+        <activity android:name=".activities.MainActivity" />
 
         <meta-data
             android:name="pdftron_license_key"
@@ -42,7 +42,7 @@
             android:configChanges="keyboardHidden|orientation|screenLayout|screenLayout|smallestScreenSize"
             android:theme="@style/CustomAppTheme"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".LoginActivity"
+        <activity android:name=".activities.LoginActivity"
             android:label="Crime Scene">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

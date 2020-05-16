@@ -1,4 +1,4 @@
-package com.example.crimescene;
+package com.example.crimescene.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,15 +7,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.crimescene.AssistantService;
+import com.example.crimescene.R;
+import com.example.crimescene.fragments.GuideFragment;
+import com.example.crimescene.fragments.HomeFragment;
+import com.example.crimescene.fragments.InvestigateFragment;
+import com.example.crimescene.fragments.TipsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 

@@ -1,4 +1,4 @@
-package com.example.crimescene;
+package com.example.crimescene.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.crimescene.Doms;
+import com.example.crimescene.LocationServiceYo;
+import com.example.crimescene.R;
 import com.google.firebase.firestore.GeoPoint;
 
 public class Sauce extends AppCompatActivity implements View.OnClickListener {
