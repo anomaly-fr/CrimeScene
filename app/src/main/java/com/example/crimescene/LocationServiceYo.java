@@ -62,6 +62,7 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
                 Notification notification= new Notification.Builder(this,"emergency")  // TODO beautify notif
                         .setContentTitle("trackin")
                         .setContentText("backup in no time")
+                        .setSmallIcon(R.id.bg_icon)
                         .setContentIntent(PendingIntent.getActivity(this,0,new Intent(this,Sauce.class),PendingIntent.FLAG_ONE_SHOT))//pls Don't remove this
                         .build();
                 startForeground(69,notification);

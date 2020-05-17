@@ -19,7 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SauceResponse"></activity>
+        <activity android:name=".SauceResponse">
+            <intent-filter>
+                <action android:name="sauce"/>
+            </intent-filter>
+
+        </activity>
 
         <service
             android:name=".LocationServiceYo"
@@ -29,10 +34,6 @@
         <activity android:name=".Sauce"
             android:icon="@mipmap/ic_launcher_round"
             android:label="HELP">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".AddFileActivity" />
         <activity android:name=".MainActivity" />

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -24,15 +25,18 @@ public class Messaging extends FirebaseMessagingService {
     Map<String,String> data= new HashMap<>();
 
     public Messaging() {
-        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
     }
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Log.e("comes","here");
         data = remoteMessage.getData();
         switch(data.get("Type")){
             case "SOS":
+
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                     NotificationChannel notificationChannel = new NotificationChannel("sos","SOSCalls", NotificationManager.IMPORTANCE_HIGH);
                     notificationChannel.setVibrationPattern(new long[]{100,300,200,500,100,400});
@@ -44,9 +48,15 @@ public class Messaging extends FirebaseMessagingService {
                     Notification notification = new Notification.Builder(getApplicationContext(),"sos")
                             .setContentTitle(getString(R.string.incoming_call))
                             .setContentText(getString(R.string.incoming_call_text))
-                            .setContentIntent(PendingIntent.getActivity(getApplicationContext(),69,new Intent(getApplicationContext(),SauceResponse.class),PendingIntent.FLAG_ONE_SHOT))
+                            .addAction(new Notification.Action.Builder(null,"Respond",PendingIntent.getActivity(getApplicationContext(),100,new Intent("sauce"),PendingIntent.FLAG_ONE_SHOT))
+                                .build())
+                            .addAction(new Notification.Action.Builder(null,"Busy",PendingIntent.getForegroundService(getApplicationContext(),69,new Intent("busy"),PendingIntent.FLAG_ONE_SHOT))
+                                .build())
+                            .setSmallIcon(R.drawable.ic_daymode_icon) //TODO ICON AND BEAUTIFY THIS
+                            .setContentIntent(PendingIntent.getActivity(getApplicationContext(),69,new Intent("sauce"),PendingIntent.FLAG_ONE_SHOT))
                             .build();
                     notificationManager.notify((int)System.currentTimeMillis(),notification);
+                    Log.e("but idk", "if here");
 
                 }
                 else{

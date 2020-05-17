@@ -41,7 +41,7 @@ dependencies {
 
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
-    implementation 'com.google.firebase:firebase-messaging:20.1.5'
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 
