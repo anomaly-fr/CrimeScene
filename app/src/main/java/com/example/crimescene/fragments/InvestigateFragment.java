@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.google.firebase.firestore.Query;
 public class InvestigateFragment extends Fragment {
     FloatingActionButton addFileButton;
     private RecyclerView casesRecylerView;
+
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private CaseAdapter caseAdapter;
 
@@ -53,7 +55,7 @@ public class InvestigateFragment extends Fragment {
                 startActivity(new Intent(getActivity(), AddFileActivity.class));
             }
         });
-        Query query =firebaseFirestore.collection("User Cases")
+        Query query =firebaseFirestore.collection("UserCases")
                 .document(UserInfo.getInstance().getEmailID())
                 .collection("Cases");
 
@@ -66,12 +68,19 @@ public class InvestigateFragment extends Fragment {
         caseAdapter.setOnCaseClickListener(new CaseAdapter.onCaseClickListener() {
             @Override
             public void onCaseClick(DocumentSnapshot snapshot, int position) {
-              Toast.makeText(getContext(), snapshot.getString("caseName"), Toast.LENGTH_SHORT).show();
-              UserInfo.getInstance().setCurrentFile(snapshot.getString("caseName"));
-               UserInfo.getInstance().setNote(snapshot.getString("caseNotes"));
 
-               FileView fileView = new FileView();
-               fileView.show(getChildFragmentManager(),"Bottom Sheet");
+              UserInfo.getInstance().setCurrentFile(snapshot.getString("caseName"));
+             //  UserInfo.getInstance().setNote(snapshot.getString("caseNotes"));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        FileView fileView = new FileView();
+                        fileView.show(getChildFragmentManager(),"BottomSheet");
+
+                    }
+                },1000);
+
+
             }
         });
         return view;

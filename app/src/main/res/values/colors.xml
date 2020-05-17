@@ -4,6 +4,7 @@
     <color name="colorSecondary">#2c3d4f</color>
     <color name="colorPrimary">#5BDAB2</color>
     <color name="backgrounds">#0CB9B9</color>
+    <color name="notes">#838080</color>
 
     <color name="colorAccent">#53bc9b</color>
     <color name="murderous_red">#ff6961</color>

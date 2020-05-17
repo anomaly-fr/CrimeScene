@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.SauceResponse"></activity>
+        <activity android:name=".activities.SauceResponse">
+
+        </activity>
 
         <service
             android:name=".LocationServiceYo"

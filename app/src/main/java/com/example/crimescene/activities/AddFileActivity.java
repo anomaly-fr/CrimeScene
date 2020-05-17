@@ -66,33 +66,44 @@ public class AddFileActivity extends AppCompatActivity implements View.OnClickLi
                 String time = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
                 String time1 = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date());
                 String order = date.concat(time1);
+                String date1 = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
                 Case newCase = new Case(caseTitle,caseType,order);
-//                if(!caseNotes.isEmpty()){
-//                    newCase.setCaseInfo(caseNotes);
-//                //    UserInfo.getInstance().setNote(caseNotes);
-//                }else{
-//                    newCase.setCaseInfo("");
-//                  //  UserInfo.getInstance().setNote("");
-//                }
+                if(!caseNotes.isEmpty()){
+                    newCase.setCaseNotes(caseNotes + "\n -" + date1 +"at "+time+ "\n\n");
+                //    UserInfo.getInstance().setNote(caseNotes);
+                }else{
+                    newCase.setCaseNotes("");
+                  //  UserInfo.getInstance().setNote("");
+                }
 
-                CollectionReference reference = db.collection("User Cases")
+                CollectionReference reference = db.collection("UserCases")
                         .document(UserInfo.getInstance().getEmailID()).collection("Cases");
-                reference.add(newCase)
-                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                Toast.makeText(AddFileActivity.this, String.format("Case %s added", caseTitle), Toast.LENGTH_SHORT).show();
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddFileActivity.this, "Failed to add case", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
+//                reference.add(newCase)
+//                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<DocumentReference> task) {
+//                                Toast.makeText(AddFileActivity.this, String.format("Case %s added", caseTitle), Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(AddFileActivity.this, "Failed to add case", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                });
+reference.document(caseTitle).set(newCase).addOnCompleteListener(new OnCompleteListener<Void>() {
+    @Override
+    public void onComplete(@NonNull Task<Void> task) {
+        Toast.makeText(AddFileActivity.this, String.format("Case %s added", caseTitle), Toast.LENGTH_SHORT).show();
+    }
+}).addOnFailureListener(new OnFailureListener() {
+    @Override
+    public void onFailure(@NonNull Exception e) {
+        Toast.makeText(AddFileActivity.this, "Failed to add case", Toast.LENGTH_SHORT).show();
+    }
+});
                 finish();
 
 
