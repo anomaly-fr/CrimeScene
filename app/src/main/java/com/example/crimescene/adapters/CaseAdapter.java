@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,18 +37,22 @@ public class CaseAdapter extends FirestoreRecyclerAdapter <Case,CaseAdapter.Case
        if(model.getCaseType() == 1) {
 
            holder.layout2.setBackgroundColor(Color.parseColor("#ff6961"));
+           holder.caseBadge.setImageResource(R.drawable.ic_shield);
        }
         else if(model.getCaseType() == 2) {
 
             holder.layout2.setBackgroundColor(Color.parseColor("#77dd77"));
+           holder.caseBadge.setImageResource(R.drawable.ic_shield_green);
         }
        else if(model.getCaseType() == 3) {
 
            holder.layout2.setBackgroundColor(Color.parseColor("#EBEB75"));
+           holder.caseBadge.setImageResource(R.drawable.ic_shield_yellow);
        }
        else {
 
            holder.layout2.setBackgroundColor(Color.parseColor("#ffd1dc"));
+           holder.caseBadge.setImageResource(R.drawable.ic_shield_pink);
        }
 
 
@@ -71,6 +76,7 @@ public class CaseAdapter extends FirestoreRecyclerAdapter <Case,CaseAdapter.Case
        private TextView caseName,caseNotes;
        private LinearLayout layout1,layout2,mainFileLL;
        private int caseType;
+       private ImageView caseBadge;
 
         public CaseViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,6 +84,7 @@ public class CaseAdapter extends FirestoreRecyclerAdapter <Case,CaseAdapter.Case
            layout1 = itemView.findViewById(R.id.case1);
            layout2 = itemView.findViewById(R.id.case2);
            mainFileLL = itemView.findViewById(R.id.main_file_ll);
+           caseBadge = itemView.findViewById(R.id.badge);
 
            mainFileLL.setOnClickListener(new View.OnClickListener() {
                @Override

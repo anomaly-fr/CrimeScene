@@ -58,6 +58,8 @@ public class InvestigateFragment extends Fragment {
         Query query =firebaseFirestore.collection("UserCases")
                 .document(UserInfo.getInstance().getEmailID())
                 .collection("Cases");
+        query.orderBy("timeCreated", Query.Direction.DESCENDING);
+
 
         FirestoreRecyclerOptions<Case>options = new FirestoreRecyclerOptions.Builder<Case>().setQuery(query,Case.class).build();
         caseAdapter = new CaseAdapter(options);
