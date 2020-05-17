@@ -32,8 +32,8 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
-            android:textSize="15dp"
+            android:text="@string/add"
+            android:textSize="15sp"
             android:fontFamily="@font/heebo_bold"
             />
         <ImageView
