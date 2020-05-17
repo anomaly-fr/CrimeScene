@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".CaseNotesFragment">
+    android:layout_margin="-5dp"
+
+    tools:context=".fragments.CaseNotesFragment">
 
     <TextView
         android:textColor="@color/colorSecondary"

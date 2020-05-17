@@ -1,7 +1,6 @@
-package com.example.crimescene;
+package com.example.crimescene.fragments;
 
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,10 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.example.crimescene.adapters.ChatAdapter;
+import com.example.crimescene.Message;
+import com.example.crimescene.R;
+import com.example.crimescene.UserInfo;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

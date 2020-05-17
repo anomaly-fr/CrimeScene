@@ -32,7 +32,17 @@ android:id="@+id/main_file_ll"
             android:layout_width="120dp"
             android:layout_height="195dp"
             android:layout_gravity="center"
-            android:background="@drawable/file_shape_1" />
+            android:background="@drawable/file_shape_1" >
+            <ImageView
+
+                android:id="@+id/badge"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_shield"/>
+"
+        </LinearLayout>
 
     <LinearLayout
 

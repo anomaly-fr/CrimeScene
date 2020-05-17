@@ -1,7 +1,7 @@
 package com.example.crimescene;
 
 public class Case {
-    String caseName,caseInfo,caseNotes;
+    String caseName,caseNotes;
     int caseType;
     String timeCreated;
     public Case(){}
@@ -34,11 +34,11 @@ public class Case {
         this.caseType = caseType;
     }
 
-    public String getCaseInfo() {
-        return caseInfo;
+    public String getCaseNotes() {
+        return caseNotes;
     }
 
-    public void setCaseInfo(String caseInfo) {
-        this.caseInfo = caseInfo;
+    public void setCaseNotes(String caseNotes) {
+        this.caseNotes = caseNotes;
     }
 }

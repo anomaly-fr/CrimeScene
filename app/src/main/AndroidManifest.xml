@@ -19,10 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SauceResponse">
-            <intent-filter>
-                <action android:name="sauce"/>
-            </intent-filter>
+        <activity android:name=".activities.SauceResponse">
 
         </activity>
 
@@ -31,12 +28,12 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Sauce"
-            android:icon="@mipmap/ic_launcher_round"
-            android:label="HELP">
-        </activity>
-        <activity android:name=".AddFileActivity" />
-        <activity android:name=".MainActivity" />
+        <service android:name=".AssistantService"/>
+
+        <activity android:name=".activities.Sauce"/>
+
+        <activity android:name=".activities.AddFileActivity" />
+        <activity android:name=".activities.MainActivity" />
 
         <meta-data
             android:name="pdftron_license_key"
@@ -47,8 +44,8 @@
             android:configChanges="keyboardHidden|orientation|screenLayout|screenLayout|smallestScreenSize"
             android:theme="@style/CustomAppTheme"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".LoginActivity"
-            android:label="LoginActivity">
+        <activity android:name=".activities.LoginActivity"
+            android:label="Crime Scene">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -1,4 +1,4 @@
-package com.example.crimescene;
+package com.example.crimescene.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

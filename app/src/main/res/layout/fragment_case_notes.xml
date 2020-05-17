@@ -4,31 +4,104 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".CaseNotesFragment">
+    android:layout_margin="-5dp"
+
+    tools:context=".fragments.CaseNotesFragment">
 
     <TextView
         android:textColor="@color/colorSecondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/heebo_bold"
-        android:text="Notes"
+        android:text="@string/notes"
         android:id="@+id/notes"
         android:textAlignment="center"
         android:textSize="25sp" />
-    <ScrollView
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/add_notes_button"
+        android:layout_alignParentEnd="true"
         android:layout_below="@id/notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/ButtonStyle"
+        android:background="@drawable/button"
+       >
         <TextView
-            android:id="@+id/case_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:textSize="15sp"
+            android:fontFamily="@font/heebo_bold"
+            />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/fab_add"/>
+
+    </LinearLayout>
     <EditText
+
+        android:visibility="gone"
         android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/add_notes_button"
+        android:layout_marginTop="10dp"
 
-       android:layout_alignParentBottom="true"
+
         android:id="@+id/notes_case"/>
+    <ImageButton
+        android:visibility="gone"
+        android:src="@drawable/ic_check_black_24dp"
+        android:layout_width="40dp"
+        android:padding="8dp"
+        android:layout_height="40dp"
+        android:id="@+id/save_note"
+        android:theme="@style/ButtonStyle"
+
+        android:gravity="center"
+        android:layout_below="@id/notes_case"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentEnd="true"
+
+        android:background="@drawable/button"/>
+    <ImageButton
+        android:visibility="gone"
+        android:src="@drawable/ic_close_black_24dp"
+        android:layout_width="40dp"
+        android:padding="8dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toLeftOf="@id/save_note"
+        android:id="@+id/cancel_save"
+        android:theme="@style/ButtonStyle"
+
+        android:gravity="center"
+        android:layout_below="@id/notes_case"
+        android:layout_marginTop="10dp"
+
+
+        android:background="@drawable/button"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/notes_case"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:padding="8dp"
+            android:id="@+id/case_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/droid_sans_mono"
+
+            android:textColor="@color/notes"
+            android:textSize="18sp" />
+    </androidx.core.widget.NestedScrollView>
+
 </RelativeLayout>
