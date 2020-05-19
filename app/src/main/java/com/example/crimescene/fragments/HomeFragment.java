@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment {
     private Button signoutButton;
-    float h=0,m=0,l=0,c=0;
+    private float h=0,m=0,l=0,c=0;
     PieChart pieChart;
     private TextView emailTextView,nicknameTextView,tagTextView;
     private CircularImageView profilepictureImageView;
@@ -145,8 +146,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (!queryDocumentSnapshots.isEmpty()) {
-
-
                     for (QueryDocumentSnapshot cases : queryDocumentSnapshots) {
                         Case currentCase = cases.toObject(Case.class);
                         switch (currentCase.getPriority()){
@@ -170,8 +169,26 @@ public class HomeFragment extends Fragment {
 
                 }
 
+                List<PieEntry> entries = new ArrayList<>();
+
+                //  Toast.makeText(getContext(), c.toString()+" " +h.toString(), Toast.LENGTH_SHORT).show();
+                if (c!=0)
+                entries.add(new PieEntry(c,"Closed"));
+                if (l!=0)
+                entries.add(new PieEntry(l,"Low"));
+                if (m!=0)
+                entries.add(new PieEntry(m,"Medium"));
+                if (h!=0)
+                entries.add(new PieEntry(h,"High"));
 
 
+                PieDataSet dataSet = new PieDataSet(entries,"");
+                dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                PieData data = new PieData(dataSet);
+                pieChart.setData(data);
+
+                pieChart.animateY(1000);
+                pieChart.invalidate();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -182,35 +199,15 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
-        List<PieEntry> entries = new ArrayList<>();
-
-      //  Toast.makeText(getContext(), c.toString()+" " +h.toString(), Toast.LENGTH_SHORT).show();
-        entries.add(new PieEntry(c,"Closed"));
-        entries.add(new PieEntry(l,"Low"));
-        entries.add(new PieEntry(m,"Medium"));
-        entries.add(new PieEntry(h,"High"));
-
-
-        PieDataSet dataSet = new PieDataSet(entries,"");
-        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        PieData data = new PieData(dataSet);
-        pieChart.setData(data);
-
-        pieChart.animateY(1000);
-        pieChart.invalidate();
     }
 
- //   @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//
-//        setUpPieChart();
-//
-//
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setUpPieChart();
+
+    }
 
 }
 
