@@ -35,4 +35,7 @@
     <string name="low">Low</string>
     <string name="save">Save</string>
     <string name="mark_as_closed">Mark as closed?</string>
+    <string name="stop">Stop</string>
+    <string name="your_location_is_being_shared_with_the_nearest_officer_of_the_law">Your location is being shared with the nearest officer of the law</string>
+    <string name="sos">SOS Mode</string>
 </resources>

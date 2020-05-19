@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
     private Button signoutButton;
     float h=0,m=0,l=0,c=0;
     PieChart pieChart;
-    private TextView emailTextView,nicknameTextView,tagTextView;
+    private TextView emailTextView,nicknameTextView,textView;
     private CircularImageView profilepictureImageView;
     private FirebaseFirestore userDatabase = FirebaseFirestore.getInstance();
     private CollectionReference reference = userDatabase.collection("Users");
@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
     SharedPreferences sharedPreferences;
 
 
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+  //  FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
 
     FirebaseAuth firebaseAuth;
@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment {
         emailTextView = view.findViewById(R.id.email_TV);
         pieChart = view.findViewById(R.id.pie_chart);
         nicknameTextView = view.findViewById(R.id.greeting_TV);
-        tagTextView = view.findViewById(R.id.tag_TV);
+       textView = view.findViewById(R.id.t);
 
         profilepictureImageView = view.findViewById(R.id.displaypic_IV);
         sharedPreferences = getActivity().getSharedPreferences("Login Shared Preference", Context.MODE_PRIVATE);
@@ -137,9 +137,9 @@ public class HomeFragment extends Fragment {
 
     private void setUpPieChart() {
 
-        firebaseFirestore =FirebaseFirestore.getInstance();
+      //  firebaseFirestore =FirebaseFirestore.getInstance();
 
-        firebaseFirestore.collection("UserCases").document(UserInfo.getInstance().getEmailID()).collection("Cases")
+        userDatabase.collection("UserCases").document(UserInfo.getInstance().getEmailID()).collection("Cases")
 
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -163,6 +163,8 @@ public class HomeFragment extends Fragment {
                                 c++;
                                 break;
 
+
+
                         }
 
                     }
@@ -178,6 +180,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
 
+
             }
         });
 
@@ -186,7 +189,8 @@ public class HomeFragment extends Fragment {
 
         List<PieEntry> entries = new ArrayList<>();
 
-      //  Toast.makeText(getContext(), c.toString()+" " +h.toString(), Toast.LENGTH_SHORT).show();
+textView.setText(c + " " + h + " " + l +" "+m);
+
         entries.add(new PieEntry(c,"Closed"));
         entries.add(new PieEntry(l,"Low"));
         entries.add(new PieEntry(m,"Medium"));

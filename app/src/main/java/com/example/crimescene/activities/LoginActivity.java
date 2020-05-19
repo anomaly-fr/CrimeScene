@@ -16,7 +16,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.example.crimescene.Designation;
 import com.example.crimescene.R;
 import com.example.crimescene.UserInfo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -174,25 +173,25 @@ public class LoginActivity extends AppCompatActivity {
 //        Map<String,Object> designation = new HashMap<>();
 //        designation.put(KEY_EMAIL,UserInfo.getInstance().getEmailID());
 //        designation.put(KEY_DESIGNATION,"NOT SET");
-        Designation designation = new Designation(UserInfo.getInstance().getEmailID(),"NOT SET");
-
-        firebaseFirestore.collection("User Designations").add(designation)
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "Error saving designation", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getApplicationContext(), "Designation Saved", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-
-        //  Toast.makeText(getApplicationContext(),"Hey, "+personname,Toast.LENGTH_SHORT).show();
+//        Designation designation = new Designation(UserInfo.getInstance().getEmailID(),"NOT SET");
+//
+//        firebaseFirestore.collection("User Designations").add(designation)
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(getApplicationContext(), "Error saving designation", Toast.LENGTH_SHORT).show();
+//                    }
+//                }).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//            @Override
+//            public void onSuccess(DocumentReference documentReference) {
+//                Toast.makeText(getApplicationContext(), "Designation Saved", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//
+//
+//
+//        //  Toast.makeText(getApplicationContext(),"Hey, "+personname,Toast.LENGTH_SHORT).show();
         finish();
         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
