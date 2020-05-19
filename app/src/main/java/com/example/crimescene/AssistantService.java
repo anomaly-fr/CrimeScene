@@ -1,7 +1,9 @@
 package com.example.crimescene;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -9,8 +11,10 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 
 import com.example.crimescene.activities.Sauce;
 
@@ -22,7 +26,9 @@ public class AssistantService extends Service {
     SpeechRecognizer speechRecognizer;
     Intent intentRecognizer;
     Handler handler;
-    private static int LOOP_TIME = 5000;
+    Runnable runnable;
+    private static int LOOP_TIME = 4000;
+    private boolean sosStatus = false;
 
     @Nullable
     @Override
@@ -36,7 +42,7 @@ public class AssistantService extends Service {
         speechRecognizer.startListening(intentRecognizer);
         Log.i("SOS", "Speech Start Here");
         handler = new Handler();
-        Runnable runnable = new Runnable() {
+        runnable = new Runnable() {
             @Override
             public void run() {
                 Log.i("SOS", "Speech Done");
@@ -44,7 +50,7 @@ public class AssistantService extends Service {
                 handler.postDelayed(this, LOOP_TIME);
             }
         };
-        handler.postDelayed(runnable, LOOP_TIME);
+        runnable.run();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -108,18 +114,48 @@ public class AssistantService extends Service {
         String string;
         if (matches!=null) {
             string = matches.get(0);
-            Log.i("SOS", "Whole String " + string);
-            if (string.contains("trouble") || string.contains("help")) {
-                Log.i("SOS", "Successful");
-                speechRecognizer.stopListening();
-                Intent i = new Intent(AssistantService.this, Sauce.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
+
+            Log.i("SOS", "Bool " + sosStatus);
+            Log.i("SOS", "Message " + string);
+
+            if (string.contains("stop voice") || string.contains("cancel voice")) {
+                Log.i("SOS", "Stop voice");
+                callAToast("Voice recognition deactivated");
                 speechRecognizer.destroy();
-                handler.removeMessages(0);
+                handler.removeCallbacks(runnable);
+                return;
             }
-            Log.i("SOS", "Messages " + handler.obtainMessage());
+
+            if (!sosStatus && (string.contains("trouble") ||
+                    string.contains("help") ||
+                    string.contains("start sos") ||
+                    string.contains("leave"))) {
+
+                if (this.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    callAToast("GeoLocation Permission not granted");
+                    callAToast("Grant those permissions to call SOS");
+                }
+
+                Log.i("SOS", "Trouble");
+                sosStatus = true;
+                callAToast("SOS activated");
+                Intent i = new Intent(AssistantService.this, LocationServiceYo.class);
+                i.setAction(Doms.EMERGENCY_START);
+                startService(i);
+
+            } else if (sosStatus && (string.contains("stop service") || string.contains("cancel service"))) {
+                Log.i("SOS", "Stop SOS");
+                sosStatus = false;
+                callAToast("SOS deactivated");
+                Intent i = new Intent(AssistantService.this, LocationServiceYo.class);
+                i.setAction(Doms.EMERGENCY_STOP);
+                startService(i);
+            }
         }
+    }
+
+    private void callAToast(String a) {
+        Toast.makeText(this, a, Toast.LENGTH_SHORT).show();
     }
 
 }

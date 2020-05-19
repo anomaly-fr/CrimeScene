@@ -3,19 +3,29 @@ package com.example.crimescene;
 public class Case {
     String caseName,caseNotes;
     int caseType;
+    int priority;
     String timeCreated;
     public Case(){}
 
-    public Case(String caseName, int caseType,String timeCreated) {
+    public Case(String caseName, int caseType,String timeCreated,int priority) {
         this.caseName = caseName;
         this.caseType = caseType;
         this.timeCreated = timeCreated;
+        this.priority = priority;
     }
     public Case(String caseName, int caseType, String timeCreated,String caseNotes) {
         this.caseName = caseName;
         this.caseType = caseType;
         this.caseNotes = caseNotes;
         this.timeCreated = timeCreated;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public String getCaseName() {

@@ -116,17 +116,50 @@
 
 
     </RelativeLayout>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/colorSecondary"
+        android:padding="8dp"
+        android:text="@string/case_priorities"
+        android:id="@+id/t"/>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp"
+        android:layout_margin="6dp"
+        android:gravity="center"
+
+
         android:orientation="vertical"
         android:padding="4dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+
+            android:textAlignment="center"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/colorPrimary"
+            android:padding="8dp"
+            android:visibility="gone"
+            android:text="@string/no_cases_yet"
+            android:id="@+id/none"/>
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_centerInParent="true"
+
+            android:id="@+id/pie_chart"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

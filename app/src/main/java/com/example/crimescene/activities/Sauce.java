@@ -57,7 +57,7 @@ public class Sauce extends AppCompatActivity implements View.OnClickListener {
         switch (requestCode) {
             case 68:
                 if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "Please let me have your location yo", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Please enable location services", Toast.LENGTH_LONG).show();
                     askPermissions();
                 } else
                     initLocationService();
@@ -68,5 +68,6 @@ public class Sauce extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v){
         stopLocationService();
+        finish();
     }
 }

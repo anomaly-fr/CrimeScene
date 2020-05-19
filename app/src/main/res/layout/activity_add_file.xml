@@ -240,6 +240,67 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mark_as_closed"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorSecondary"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginTop="50dp"/>
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/case_closed"
+
+                    android:padding="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/case_priority"
+                    android:textSize="20sp"
+                    android:id="@+id/choose_priority"
+
+                    android:textColor="@color/colorSecondary"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_marginTop="50dp"/>
+                <RadioGroup
+                    android:id="@+id/radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/high"
+
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/high"
+                        android:textColor="@color/colorSecondary"
+                        android:fontFamily="@font/roboto_bold"
+                        />
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/medium"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/medium"
+                        android:textColor="@color/colorSecondary"
+                        android:fontFamily="@font/roboto_bold"
+                        />
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:text="@string/low"
+                        android:id="@+id/low"
+                        android:textColor="@color/colorSecondary"
+                        android:fontFamily="@font/roboto_bold"
+                        />
+                </RadioGroup>
+
+
                 <Button
                     android:id="@+id/save_case"
                     android:layout_width="wrap_content"
@@ -247,7 +308,7 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
 
-                    android:text="Save"
+                    android:text="@string/save"
 
 
                   android:layout_gravity="end"
