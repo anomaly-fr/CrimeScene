@@ -29,4 +29,10 @@
     <string name="notes">Notes</string>
     <string name="this_is_a_note">This is a note.</string>
     <string name="add">Add</string>
+    <string name="case_priority">Case priority:</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+    <string name="save">Save</string>
+    <string name="mark_as_closed">Mark as closed?</string>
 </resources>

@@ -118,15 +118,22 @@
     </RelativeLayout>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="4dp">
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pie_chart"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

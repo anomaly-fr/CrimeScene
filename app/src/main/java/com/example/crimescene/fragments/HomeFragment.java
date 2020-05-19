@@ -18,40 +18,55 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.crimescene.Case;
+import com.example.crimescene.activities.AddFileActivity;
 import com.example.crimescene.activities.LoginActivity;
 import com.example.crimescene.R;
 import com.example.crimescene.UserInfo;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
     private Button signoutButton;
+    float h=0,m=0,l=0,c=0;
+    PieChart pieChart;
     private TextView emailTextView,nicknameTextView,tagTextView;
     private CircularImageView profilepictureImageView;
     private FirebaseFirestore userDatabase = FirebaseFirestore.getInstance();
     private CollectionReference reference = userDatabase.collection("Users");
+//    private CollectionReference ref = userDatabase.collection("UserCases").document(UserInfo.getInstance().getEmailID()).collection("Cases");
     SharedPreferences sharedPreferences;
-    private static final String COP = " Cop";
-    private static final String CIVILIAN = "Civilian";
-    private static final String KEY_EMAIL = "Email";
-    private static final String KEY_DESIGNATION = "Designation";
+
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
 
     FirebaseAuth firebaseAuth;
     GoogleSignInClient googleSignInClient;
+
 
 
     public HomeFragment() {
@@ -70,8 +85,10 @@ public class HomeFragment extends Fragment {
         googleSignInClient = GoogleSignIn.getClient(getContext(), googleSignInOptions);
         signoutButton = view.findViewById(R.id.signout_button);
         emailTextView = view.findViewById(R.id.email_TV);
+        pieChart = view.findViewById(R.id.pie_chart);
         nicknameTextView = view.findViewById(R.id.greeting_TV);
         tagTextView = view.findViewById(R.id.tag_TV);
+
         profilepictureImageView = view.findViewById(R.id.displaypic_IV);
         sharedPreferences = getActivity().getSharedPreferences("Login Shared Preference", Context.MODE_PRIVATE);
         UserInfo.getInstance().setFullName(sharedPreferences.getString("Name",null));
@@ -80,6 +97,8 @@ public class HomeFragment extends Fragment {
         UserInfo userInfo = UserInfo.getInstance();
         emailTextView.setText(userInfo.getEmailID());
         nicknameTextView.setText(userInfo.getFullName());
+
+
 
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
@@ -111,76 +130,90 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        String desig;
-//        firebaseFirestore.collection("Designations")
-//                .whereEqualTo("KEY_EMAIL",UserInfo.getInstance().getEmailID()).limit(1)
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        for(QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-//                            Designation check = snapshot.toObject(Designation.class);
-//                            String email = check.getKEY_EMAIL();
-//                            String desig = check.getKEY_DESIGNATION();
-//
-//                            if(desig.equals("NOT SET")){
-//                                Toast.makeText(getContext(), email + " Designation not set", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        }
-//
-//
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Toast.makeText(getContext(), "fail", Toast.LENGTH_SHORT).show();
-//
-//                                            }
-//                                        });
+        setUpPieChart();
 
-
-//
-//    if(sharedPreferences.getString("First time","Not set").equals("Cop")){
-//        tagTextView.setText(COP);
-//    }else if(sharedPreferences.getString("First time","Not set").equals("Civilian")){
-//        tagTextView.setText(CIVILIAN);
-//    }else{
-//        // Toast.makeText(getContext(), "Not set", Toast.LENGTH_SHORT).show();
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setTitle("Are you a part of the police force?").setPositiveButton("Yes, I'm a cop", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                sharedPreferences.edit().putString("First time","Cop").apply();
-//
-//                dialog.dismiss();
-//                tagTextView.setText(COP);
-//
-//            }
-//        }).setNegativeButton("No, I'm a civilian", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                sharedPreferences.edit().putString("First time","Civilian").apply();
-//                dialog.dismiss();
-//                tagTextView.setText(CIVILIAN);
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
         return view;
     }
 
+    private void setUpPieChart() {
+
+        firebaseFirestore =FirebaseFirestore.getInstance();
+
+        firebaseFirestore.collection("UserCases").document(UserInfo.getInstance().getEmailID()).collection("Cases")
+
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+
+
+                    for (QueryDocumentSnapshot cases : queryDocumentSnapshots) {
+                        Case currentCase = cases.toObject(Case.class);
+                        switch (currentCase.getPriority()){
+                            case 1:
+                                h++;
+                                break;
+                            case 2:
+                                m++;
+                                break;
+                            case 3:
+                                l++;
+                                break;
+                            case 4:
+                                c++;
+                                break;
+
+                        }
+
+                    }
+
+
+                }
 
 
 
 
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
 
 
 
 
+        List<PieEntry> entries = new ArrayList<>();
 
+      //  Toast.makeText(getContext(), c.toString()+" " +h.toString(), Toast.LENGTH_SHORT).show();
+        entries.add(new PieEntry(c,"Closed"));
+        entries.add(new PieEntry(l,"Low"));
+        entries.add(new PieEntry(m,"Medium"));
+        entries.add(new PieEntry(h,"High"));
+
+
+        PieDataSet dataSet = new PieDataSet(entries,"");
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        PieData data = new PieData(dataSet);
+        pieChart.setData(data);
+
+        pieChart.animateY(1000);
+        pieChart.invalidate();
     }
+
+ //   @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//
+//        setUpPieChart();
+//
+//
+//    }
+
+}
+
+
 
 
