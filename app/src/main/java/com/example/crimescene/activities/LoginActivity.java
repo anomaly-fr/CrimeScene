@@ -69,7 +69,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         }else{
-            Toast.makeText(this, "No Shared Preference found", Toast.LENGTH_SHORT).show();
+
+            //  Toast.makeText(this, "No Shared Preference found", Toast.LENGTH_SHORT).show();
         }
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         else{
-            Toast.makeText(getApplicationContext(),"Add fancy message here",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"Failed to authenticate",Toast.LENGTH_LONG).show();
         }
     }
 

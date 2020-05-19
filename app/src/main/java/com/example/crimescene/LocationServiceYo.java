@@ -87,7 +87,7 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
     @Override
     public void onComplete(@NonNull Task<Void> task) {
         if(task.isSuccessful())
-            Toast.makeText(this, "dayum", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "SOS mode exited", Toast.LENGTH_SHORT).show();
     }
 
     @Override

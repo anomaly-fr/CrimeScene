@@ -25,6 +25,7 @@ import com.example.crimescene.activities.LoginActivity;
 import com.example.crimescene.R;
 import com.example.crimescene.UserInfo;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
     private Button signoutButton;
     private float h=0,m=0,l=0,c=0;
     PieChart pieChart;
-    private TextView emailTextView,nicknameTextView,tagTextView;
+    private TextView emailTextView,nicknameTextView,noCases,tagTextView;
     private CircularImageView profilepictureImageView;
     private FirebaseFirestore userDatabase = FirebaseFirestore.getInstance();
     private CollectionReference reference = userDatabase.collection("Users");
@@ -89,6 +90,8 @@ public class HomeFragment extends Fragment {
         pieChart = view.findViewById(R.id.pie_chart);
         nicknameTextView = view.findViewById(R.id.greeting_TV);
         tagTextView = view.findViewById(R.id.tag_TV);
+        noCases = view.findViewById(R.id.none);
+
 
         profilepictureImageView = view.findViewById(R.id.displaypic_IV);
         sharedPreferences = getActivity().getSharedPreferences("Login Shared Preference", Context.MODE_PRIVATE);
@@ -137,6 +140,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpPieChart() {
+        c=0;
+        h=0;
+        l=0;
+        m=0;
 
         firebaseFirestore =FirebaseFirestore.getInstance();
 
@@ -180,12 +187,23 @@ public class HomeFragment extends Fragment {
                 entries.add(new PieEntry(m,"Medium"));
                 if (h!=0)
                 entries.add(new PieEntry(h,"High"));
+                if(c==0 && l==0 && m ==0 && h==0)
+                    noCases.setVisibility(View.VISIBLE);
+                else noCases.setVisibility(View.INVISIBLE);
 
 
                 PieDataSet dataSet = new PieDataSet(entries,"");
                 dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 PieData data = new PieData(dataSet);
                 pieChart.setData(data);
+
+            //    pieChart.setDrawEntryLabels(false);
+                Legend legend = pieChart.getLegend();
+                legend.setEnabled(false);
+                data.setDrawValues(false);
+
+
+                pieChart.getDescription().setEnabled(false);
 
                 pieChart.animateY(1000);
                 pieChart.invalidate();
