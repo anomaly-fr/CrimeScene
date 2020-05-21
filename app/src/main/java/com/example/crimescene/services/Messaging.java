@@ -1,4 +1,4 @@
-package com.example.crimescene;
+package com.example.crimescene.services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -12,7 +12,9 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
+import com.example.crimescene.R;
 import com.example.crimescene.activities.SauceResponse;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -22,10 +24,13 @@ import java.util.Map;
 public class Messaging extends FirebaseMessagingService {
     NotificationManager notificationManager;
 
+    FirebaseFirestore firestore;
+
     Map<String,String> data= new HashMap<>();
 
     public Messaging() {
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        firestore= FirebaseFirestore.getInstance();
     }
 
     @Override
@@ -59,6 +64,13 @@ public class Messaging extends FirebaseMessagingService {
                     notificationManager.notify((int)System.currentTimeMillis(),notification);
 
                 }
+                break;
+            case "SOSInit":
+                Map<String,Object> mylocation = new HashMap<>();
+                firestore.collection("emergencies").document(data.get("emergencyId"))
+                        .collection("onlineCops")
+                        .document("locationsList")
+                        .update(mylocation);
 
 
         }

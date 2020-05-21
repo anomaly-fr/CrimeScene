@@ -25,7 +25,7 @@
         </activity>
 
         <service
-            android:name=".LocationServiceYo"
+            android:name=".services.LocationServiceYo"
             android:enabled="true"
             android:exported="true" />
 
@@ -58,7 +58,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name=".Messaging"
+            android:name=".services.Messaging"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

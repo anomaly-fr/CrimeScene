@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.crimescene.Doms;
-import com.example.crimescene.LocationServiceYo;
+import com.example.crimescene.services.LocationServiceYo;
 import com.example.crimescene.R;
 import com.google.firebase.firestore.GeoPoint;
 

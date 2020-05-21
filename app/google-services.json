@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "938945418286",
-    "firebase_url": "https://crime-scene-d69de.firebaseio.com",
-    "project_id": "crime-scene-d69de",
-    "storage_bucket": "crime-scene-d69de.appspot.com"
+    "project_number": "847509055956",
+    "firebase_url": "https://crimescene-f1651.firebaseio.com",
+    "project_id": "crimescene-f1651",
+    "storage_bucket": "crimescene-f1651.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:938945418286:android:6c9afbac045e40168d7bbf",
+        "mobilesdk_app_id": "1:847509055956:android:f49626fd2d59aaa9384e41",
         "android_client_info": {
           "package_name": "com.example.crimescene"
         }
       },
       "oauth_client": [
         {
-          "client_id": "938945418286-3r7keelpvj053jp2dko1b0bvimi9bd4n.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.crimescene",
-            "certificate_hash": "9ae897b62f6f616f1da3799c84411acacc19dbfe"
-          }
-        },
-        {
-          "client_id": "938945418286-t3onjts9t9qekndoniuia1q5im3r95t8.apps.googleusercontent.com",
+          "client_id": "847509055956-82kvpi62sam3fkaejqclsp29oet960ah.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBrsXD9fAO09kbcYilpO_3jPCl5aSNbVkE"
+          "current_key": "AIzaSyBJE3MrhxAuQtZZWTbxPDcakIK0p8qq7rk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "938945418286-t3onjts9t9qekndoniuia1q5im3r95t8.apps.googleusercontent.com",
+              "client_id": "847509055956-82kvpi62sam3fkaejqclsp29oet960ah.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
