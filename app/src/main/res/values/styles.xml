@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorSecondary</item>
@@ -22,5 +22,20 @@
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
+
+
+    <style name="Widget.MaterialComponents.Button.OutlinedButton.Reject" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@color/murderous_red</item>
+        <item name="colorAccent">@color/murderous_red</item>
+        <item name="colorPrimary">@color/murderous_red</item>
+        <item name="android:padding">@dimen/spacing_medium</item>
+        <item name="android:layout_margin">@dimen/spacing_medium</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="Widget.MaterialComponents.Button.OutlinedButton.Accept" parent="Widget.MaterialComponents.Button.OutlinedButton.Reject">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+
 
 </resources>

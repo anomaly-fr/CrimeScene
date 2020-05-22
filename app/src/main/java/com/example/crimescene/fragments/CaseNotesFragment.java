@@ -14,9 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.crimescene.Case;
+import com.example.crimescene.PojoModels.Case;
 import com.example.crimescene.R;
-import com.example.crimescene.UserInfo;
+import com.example.crimescene.PojoModels.UserInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

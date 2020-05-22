@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.crimescene.adapters.ChatAdapter;
 import com.example.crimescene.Message;
 import com.example.crimescene.R;
-import com.example.crimescene.UserInfo;
+import com.example.crimescene.PojoModels.UserInfo;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

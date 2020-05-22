@@ -1,4 +1,4 @@
-package com.example.crimescene;
+package com.example.crimescene.PojoModels;
 
 import android.net.Uri;
 

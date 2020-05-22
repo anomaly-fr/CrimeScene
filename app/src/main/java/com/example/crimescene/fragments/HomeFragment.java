@@ -19,11 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.crimescene.Case;
+import com.example.crimescene.PojoModels.Case;
+import com.example.crimescene.PojoModels.UserInfo;
 import com.example.crimescene.activities.AddFileActivity;
 import com.example.crimescene.activities.LoginActivity;
 import com.example.crimescene.R;
-import com.example.crimescene.UserInfo;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;

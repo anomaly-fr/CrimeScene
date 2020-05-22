@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.crimescene.PojoModels.UserInfo;
 import com.example.crimescene.adapters.ViewPagerAdapter;
 import com.example.crimescene.fragments.CaseNotesFragment;
 import com.example.crimescene.fragments.CasePhotosFragment;

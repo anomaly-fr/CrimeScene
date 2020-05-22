@@ -1,4 +1,4 @@
-package com.example.crimescene;
+package com.example.crimescene.services;
 
 import android.Manifest;
 import android.app.Notification;
@@ -18,11 +18,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.crimescene.Doms;
 import com.example.crimescene.activities.Sauce;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
@@ -34,6 +36,7 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
     LocationManager locationManager;
     GeoPoint geoPoint;
     Map<String,Object> map= new HashMap<>();
+    int serviceType=1;
 
 
 
@@ -45,17 +48,21 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
         return null;
     }
 
+    private void initLocation(){
+        locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+        if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
+            locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 1000, 100, this);
+        }
+
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(intent.getAction().equals(Doms.EMERGENCY_START)){
-
-            locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, this);
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
-                locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 1000, 100, this);
-            }
-
+            serviceType=1;
+            initLocation();
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                 NotificationChannel notificationChannel= new NotificationChannel("emergency","Emergency obviously", NotificationManager.IMPORTANCE_LOW);
                 notificationChannel.setVibrationPattern(new long[]{1000L, 1000L, 1000L}); //TODO same, beautify notif
@@ -69,7 +76,28 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
             }
 
         }
-        else{
+        else if(intent.getAction().equals(Doms.EMERGENCY_STOP)){
+            stopForeground(true);
+            stopSelf();
+        }
+        else if(intent.getAction().equals(Doms.COP_ONLINE)){
+            serviceType=2;
+            initLocation();
+            if(Build.VERSION.SDK_INT> Build.VERSION_CODES.O) {
+                Notification notification = new Notification.Builder(this,"emergency")
+                        .setContentText("Eh")
+                        .setContentTitle("meh") //TODO make pretty
+                        .setContentIntent(PendingIntent.getActivity(this,0,new Intent(this,Sauce.class),PendingIntent.FLAG_ONE_SHOT))
+                        .build();
+                startForeground(68, notification);
+            }
+        }
+        else if(intent.getAction().equals(Doms.COP_OFFLINE)){
+            map= new HashMap<>();
+            map.put(FirebaseAuth.getInstance().getUid(),
+                    geoPoint);
+            FirebaseFirestore.getInstance().collection("OnlineList").document("OnlineList")
+                    .update(map);
             stopForeground(true);
             stopSelf();
         }
@@ -94,13 +122,20 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
     public void onLocationChanged(Location location) {
         geoPoint = new GeoPoint(location.getLatitude(),location.getLongitude());
         map.put(Timestamp.now().toString(),geoPoint);
+        if(serviceType==1) {
+            FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
+                    .update(map);
+            FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
+                    .collection("latest")
+                    .document("location")
+                    .set(new Err(geoPoint));
+        }
+        else{
+            FirebaseFirestore.getInstance().collection("OnlineList")
+                    .document("OnlineList")
+                    .update(FirebaseAuth.getInstance().getUid(),geoPoint);
+        }
 
-        FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
-                .update(map);
-        FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
-                .collection("latest")
-                .document("location")
-                .set(new Err(geoPoint));
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.crimescene;
+package com.example.crimescene.PojoModels;
 
 public class Case {
     String caseName,caseNotes;
