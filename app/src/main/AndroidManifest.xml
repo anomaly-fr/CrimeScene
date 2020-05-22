@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
@@ -20,19 +20,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.SauceResponse">
-
-        </activity>
+        <activity android:name=".activities.LoginActivity"></activity>
+        <activity android:name=".activities.SauceResponse"></activity>
 
         <service
             android:name=".LocationServiceYo"
             android:enabled="true"
             android:exported="true" />
+        <service android:name=".AssistantService" />
 
-        <service android:name=".AssistantService"/>
-
-        <activity android:name=".activities.Sauce"/>
-
+        <activity android:name=".activities.Sauce" />
         <activity android:name=".activities.AddFileActivity" />
         <activity android:name=".activities.MainActivity" />
 
@@ -45,10 +42,12 @@
             android:configChanges="keyboardHidden|orientation|screenLayout|screenLayout|smallestScreenSize"
             android:theme="@style/CustomAppTheme"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activities.LoginActivity"
+        <activity
+            android:name=".activities.SplashScreen"
             android:label="Crime Scene">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -64,7 +63,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

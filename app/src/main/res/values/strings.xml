@@ -40,4 +40,6 @@
     <string name="sos">SOS Mode</string>
     <string name="case_priorities">Case Priorities:</string>
     <string name="no_cases_yet">No cases yet</string>
+    <string name="coplease">CopLease</string>
+    <string name="todo">TODO</string>
 </resources>
