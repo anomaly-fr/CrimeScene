@@ -42,16 +42,16 @@ public class AssistantService extends Service {
         initiateSpeech();
         speechRecognizer.startListening(intentRecognizer);
         Log.i("SOS", "Speech Start Here");
-        handler = new Handler();
+        /*handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
                 Log.i("SOS", "Speech Done");
                 speechRecognizer.startListening(intentRecognizer);
-                handler.postDelayed(this, LOOP_TIME);
+                //handler.postDelayed(this, LOOP_TIME);
             }
         };
-        runnable.run();
+        runnable.run();*/
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -85,12 +85,18 @@ public class AssistantService extends Service {
 
             @Override
             public void onEndOfSpeech() {
+                //speechRecognizer.startListening(intentRecognizer);
+
+
 
             }
 
             @Override
             public void onError(int error) {
                 Log.i("SOS", "Error " + error);
+                speechRecognizer.stopListening();
+                speechRecognizer.startListening(intentRecognizer);
+               // speechRecognizer.startListening(intentRecognizer);
             }
 
             @Override
@@ -100,7 +106,7 @@ public class AssistantService extends Service {
 
             @Override
             public void onPartialResults(Bundle partialResults) {
-                onGettingResults(partialResults);
+                 onGettingResults(partialResults);
             }
 
             @Override
@@ -122,8 +128,8 @@ public class AssistantService extends Service {
             if (string.contains("stop voice") || string.contains("cancel voice")) {
                 Log.i("SOS", "Stop voice");
                 callAToast("Voice recognition deactivated");
-                speechRecognizer.destroy();
-                handler.removeCallbacks(runnable);
+               // speechRecognizer.destroy();
+               // handler.removeCallbacks(runnable);
                 return;
             }
 
@@ -142,6 +148,7 @@ public class AssistantService extends Service {
                 callAToast("SOS activated");
                 Intent i = new Intent(AssistantService.this, LocationServiceYo.class);
                 i.setAction(Doms.EMERGENCY_START);
+                Log.i("does","thiseven_happen");
                 startService(i);
 
             } else if (sosStatus && (string.contains("stop service") || string.contains("cancel service"))) {

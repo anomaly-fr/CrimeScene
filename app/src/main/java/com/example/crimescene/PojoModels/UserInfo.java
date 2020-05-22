@@ -2,6 +2,8 @@ package com.example.crimescene.PojoModels;
 
 import android.net.Uri;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class UserInfo {
     private static final UserInfo instance = new UserInfo();
 

@@ -55,6 +55,8 @@ public class SauceResponse extends AppCompatActivity implements OnMapReadyCallba
         markerOptions= new MarkerOptions();
         this.googleMap= googleMap;
 
+        //close with report/without report
+
 
 
     }

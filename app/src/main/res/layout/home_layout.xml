@@ -114,6 +114,16 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cop_duty_switch"
+            android:text="On Duty"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:layout_below="@id/greeting_TV"
+            android:layout_centerHorizontal="true"/>
+
 
     </RelativeLayout>
     <TextView

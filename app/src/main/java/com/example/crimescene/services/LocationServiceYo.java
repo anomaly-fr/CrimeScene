@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.crimescene.Doms;
+import com.example.crimescene.PojoModels.EmergencyCopProfile;
 import com.example.crimescene.activities.Sauce;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +38,7 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
     GeoPoint geoPoint;
     Map<String,Object> map= new HashMap<>();
     int serviceType=1;
+    String email;
 
 
 
@@ -55,6 +57,7 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
             locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 1000, 100, this);
         }
+        email=GoogleSignIn.getLastSignedInAccount(this).getEmail();
 
     }
 
@@ -91,13 +94,16 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
                         .build();
                 startForeground(68, notification);
             }
+            FirebaseFirestore.getInstance().collection("OnlineList")
+                    .document("OnlineList")
+                    .
         }
         else if(intent.getAction().equals(Doms.COP_OFFLINE)){
             map= new HashMap<>();
             map.put(FirebaseAuth.getInstance().getUid(),
                     geoPoint);
-            FirebaseFirestore.getInstance().collection("OnlineList").document("OnlineList")
-                    .update(map);
+            FirebaseFirestore.getInstance().collection("OnlineList").document(email)
+                    .delete();
             stopForeground(true);
             stopSelf();
         }
@@ -107,9 +113,14 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
     @Override
     public void onDestroy() {
         super.onDestroy();
-        FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
+        if(serviceType==1)
+            FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
                 .delete()
                 .addOnCompleteListener(this);
+        else
+            FirebaseFirestore.getInstance().collection("OnlineList")
+            .document(email)
+            .delete();
     }
 
     @Override
@@ -132,8 +143,8 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
         }
         else{
             FirebaseFirestore.getInstance().collection("OnlineList")
-                    .document("OnlineList")
-                    .update(FirebaseAuth.getInstance().getUid(),geoPoint);
+                    .document(email)
+                    .set(new EmergencyCopProfile(geoPoint));
         }
 
 

@@ -15,15 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.crimescene.Doms;
 import com.example.crimescene.PojoModels.Case;
 import com.example.crimescene.PojoModels.UserInfo;
 import com.example.crimescene.activities.AddFileActivity;
 import com.example.crimescene.activities.LoginActivity;
 import com.example.crimescene.R;
+import com.example.crimescene.services.LocationServiceYo;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -38,6 +42,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,7 +56,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener{
     private Button signoutButton;
     private float h=0,m=0,l=0,c=0;
     PieChart pieChart;
@@ -59,6 +64,7 @@ public class HomeFragment extends Fragment {
     private CircularImageView profilepictureImageView;
     private FirebaseFirestore userDatabase = FirebaseFirestore.getInstance();
     private CollectionReference reference = userDatabase.collection("Users");
+    private Switch dutySwitch;
 //    private CollectionReference ref = userDatabase.collection("UserCases").document(UserInfo.getInstance().getEmailID()).collection("Cases");
     SharedPreferences sharedPreferences;
 
@@ -91,6 +97,18 @@ public class HomeFragment extends Fragment {
         nicknameTextView = view.findViewById(R.id.greeting_TV);
         tagTextView = view.findViewById(R.id.tag_TV);
         noCases = view.findViewById(R.id.none);
+        dutySwitch = view.findViewById(R.id.cop_duty_switch);
+
+        dutySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    getContext().startService(new Intent(getContext(), LocationServiceYo.class).setAction(Doms.COP_ONLINE));
+                else
+                    getContext().startService(new Intent(getContext(), LocationServiceYo.class).setAction(Doms.COP_OFFLINE));
+
+            }
+        });
 
 
         profilepictureImageView = view.findViewById(R.id.displaypic_IV);
@@ -227,6 +245,12 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+
+
+    }
 }
 
 
