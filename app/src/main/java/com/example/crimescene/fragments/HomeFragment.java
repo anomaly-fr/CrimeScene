@@ -25,6 +25,7 @@ import com.example.crimescene.Doms;
 import com.example.crimescene.PojoModels.Case;
 import com.example.crimescene.PojoModels.UserInfo;
 import com.example.crimescene.activities.AddFileActivity;
+import com.example.crimescene.activities.Emergency;
 import com.example.crimescene.activities.LoginActivity;
 import com.example.crimescene.R;
 import com.example.crimescene.services.LocationServiceYo;
@@ -98,14 +99,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         tagTextView = view.findViewById(R.id.tag_TV);
         noCases = view.findViewById(R.id.none);
         dutySwitch = view.findViewById(R.id.cop_duty_switch);
-
+        view.findViewById(R.id.emergencies).setOnClickListener(this);
         dutySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    getContext().startService(new Intent(getContext(), LocationServiceYo.class).setAction(Doms.COP_ONLINE));
-                else
-                    getContext().startService(new Intent(getContext(), LocationServiceYo.class).setAction(Doms.COP_OFFLINE));
+                if (isChecked) {
+                    Intent i = new Intent(getContext().getApplicationContext(),LocationServiceYo.class).setAction(Doms.COP_ONLINE);
+                    getContext().getApplicationContext().startService(i);
+                }
+                else {
+                    Intent i = new Intent(getContext().getApplicationContext(), LocationServiceYo.class).setAction(Doms.COP_OFFLINE);
+                    getContext().getApplicationContext().startService(i);
+                }
 
             }
         });
@@ -247,6 +252,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.emergencies:
+                startActivity(new Intent(getContext(), Emergency.class));
+                break;
+        }
 
 
 

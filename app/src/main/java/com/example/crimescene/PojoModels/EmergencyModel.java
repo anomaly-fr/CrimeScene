@@ -3,10 +3,19 @@ package com.example.crimescene.PojoModels;
 import com.google.firebase.firestore.GeoPoint;
 
 public class EmergencyModel {
-    Case mCase;
+   // Case mCase;
     GeoPoint location;
     boolean assigned,open;
     String leadOfficerId;
+    String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public EmergencyModel() {
     }
@@ -19,21 +28,22 @@ public class EmergencyModel {
         this.open = open;
     }
 
-    public EmergencyModel(Case mCase, GeoPoint location, boolean assigned, boolean open, String leadOfficerId) {
-        this.mCase = mCase;
+    public EmergencyModel(GeoPoint location, boolean assigned, boolean open, String leadOfficerId, String email) {
+        //this.mCase = mCase;
         this.location = location;
         this.assigned = assigned;
         this.open = open;
         this.leadOfficerId = leadOfficerId;
+        this.email = email;
     }
 
-    public Case getmCase() {
-        return mCase;
-    }
+    //public Case getmCase() {
+      //  return mCase;
+    //}
 
-    public void setmCase(Case mCase) {
-        this.mCase = mCase;
-    }
+    //public void setmCase(Case mCase) {
+      //  this.mCase = mCase;
+    //}
 
     public GeoPoint getLocation() {
         return location;

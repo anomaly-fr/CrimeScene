@@ -11,15 +11,20 @@ import androidx.viewpager.widget.ViewPager;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MenuItem;
 
 import com.example.crimescene.AssistantService;
+import com.example.crimescene.Doms;
 import com.example.crimescene.R;
+import com.example.crimescene.fragments.EmergenciesFragment;
 import com.example.crimescene.fragments.GuideFragment;
 import com.example.crimescene.fragments.HomeFragment;
 import com.example.crimescene.fragments.InvestigateFragment;
 import com.example.crimescene.fragments.TipsFragment;
+import com.example.crimescene.services.LocationServiceYo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -35,8 +40,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, PackageManager.PERMISSION_GRANTED);
-        startService(new Intent(this, AssistantService.class));
+        //startService(new Intent(this, AssistantService.class));
+        startService(new Intent(this, LocationServiceYo.class).setAction(Doms.EMERGENCY_START));
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_bar);
         //Fragment homeFragment = new HomeFragment();
@@ -47,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         pagerAdapter= new MainPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.POSITION_UNCHANGED);
         mainPager.setAdapter(pagerAdapter);
 
-        mainPager.setOffscreenPageLimit(3);
+        mainPager.setOffscreenPageLimit(4);
         mainPager.addOnPageChangeListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home_item);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -75,8 +82,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.guide_item:
                 mainPager.setCurrentItem(2);
                 break;
-            case R.id.tips_item:
+            case R.id.emergencies:
                 mainPager.setCurrentItem(3);
+                break;
+            case R.id.tips_item:
+                mainPager.setCurrentItem(4);
                 break;
         }
         return true;
@@ -97,7 +107,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             break;
             case 2: bottomNavigationView.setSelectedItemId(R.id.guide_item);
             break;
-            case 3: bottomNavigationView.setSelectedItemId(R.id.tips_item);
+            case 3:
+                bottomNavigationView.setSelectedItemId(R.id.emergencies);
+                break;
+            case 4: bottomNavigationView.setSelectedItemId(R.id.tips_item);
             break;
         }
 
@@ -127,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case 2:
                      return new GuideFragment();
                 case 3:
+                    return new EmergenciesFragment();
+                case 4:
                     return  new TipsFragment();
             }
             return null;
@@ -134,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
     }
 

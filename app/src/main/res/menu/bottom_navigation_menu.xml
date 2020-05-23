@@ -16,6 +16,10 @@
         android:icon="@drawable/document"
         />
     <item
+        android:id="@+id/emergencies"
+        android:title="Emergencies"
+        android:icon="@drawable/siren"/>
+    <item
         android:id="@+id/tips_item"
         android:title="@string/tips"
         android:icon="@drawable/community"

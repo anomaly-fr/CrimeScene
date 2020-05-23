@@ -114,7 +114,7 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cop_duty_switch"
@@ -122,6 +122,14 @@
             android:padding="5dp"
             android:layout_margin="5dp"
             android:layout_below="@id/greeting_TV"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:text="EMERGENCIES"
+            android:id="@+id/emergencies"
+            android:layout_below="@id/cop_duty_switch"
             android:layout_centerHorizontal="true"/>
 
 

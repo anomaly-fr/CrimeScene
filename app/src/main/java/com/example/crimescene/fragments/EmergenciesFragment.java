@@ -85,11 +85,11 @@ public class EmergenciesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(v, savedInstanceState);
-        recycler = v.findViewById(R.id.recycler)
+        recycler = v.findViewById(R.id.recycler);
         Query query = FirebaseFirestore.getInstance().collection("emergencies");
-        FirestoreRecyclerOptions<EmergencyModel> options = new FirestoreRecyclerOptions.Builder<Case>().setQuery(query, EmergencyModel.class).build();
+        FirestoreRecyclerOptions<EmergencyModel> options = new FirestoreRecyclerOptions.Builder<EmergencyModel>().setQuery(query, EmergencyModel.class).build();
         adapter = new EmergenciesAdapter(options);
-        GridLayoutManager manager = new GridLayoutManager(getContext(),2);
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
 
         recycler.setLayoutManager(manager);
         recycler.setAdapter(adapter);
@@ -97,8 +97,22 @@ public class EmergenciesFragment extends Fragment {
         adapter.setOnEmergencyClickListener(new EmergenciesAdapter.onEmergencyClickListener() {
             @Override
             public void onEmergencyClick(DocumentSnapshot snapshot, int position) {
-                new EmergencyDialogAcceptanceFragment().show(getChildFragmentManager(),"tag");
+                new EmergencyDialogAcceptanceFragment(snapshot.getId(),snapshot.getGeoPoint("location")).show(getChildFragmentManager(), "tag");
 
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(adapter!=null)
+            adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
 }

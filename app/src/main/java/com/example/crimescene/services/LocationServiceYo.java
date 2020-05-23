@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Icon;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,16 +18,24 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.crimescene.Doms;
+import com.example.crimescene.PojoModels.Case;
 import com.example.crimescene.PojoModels.EmergencyCopProfile;
+import com.example.crimescene.PojoModels.EmergencyModel;
+import com.example.crimescene.R;
 import com.example.crimescene.activities.Sauce;
+import com.example.crimescene.activities.SauceResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.HashMap;
@@ -63,16 +72,19 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if(intent == null)
+            return Service.START_NOT_STICKY;
+        NotificationChannel notificationChannel= new NotificationChannel("emergency","Emergency obviously", NotificationManager.IMPORTANCE_LOW);
+        notificationChannel.setVibrationPattern(new long[]{1000L, 1000L, 1000L}); //TODO same, beautify notif
+        ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).createNotificationChannel(notificationChannel);
         if(intent.getAction().equals(Doms.EMERGENCY_START)){
             serviceType=1;
             initLocation();
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                NotificationChannel notificationChannel= new NotificationChannel("emergency","Emergency obviously", NotificationManager.IMPORTANCE_LOW);
-                notificationChannel.setVibrationPattern(new long[]{1000L, 1000L, 1000L}); //TODO same, beautify notif
-                ((NotificationManager)getSystemService(NOTIFICATION_SERVICE)).createNotificationChannel(notificationChannel);
                 Notification notification= new Notification.Builder(this,"emergency")  // TODO beautify notif
                         .setContentTitle("trackin")
                         .setContentText("backup in no time")
+                        .setSmallIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_shield))
                         .setContentIntent(PendingIntent.getActivity(this,0,new Intent(this, Sauce.class),PendingIntent.FLAG_ONE_SHOT))//pls Don't remove this
                         .build();
                 startForeground(69,notification);
@@ -88,15 +100,14 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
             initLocation();
             if(Build.VERSION.SDK_INT> Build.VERSION_CODES.O) {
                 Notification notification = new Notification.Builder(this,"emergency")
-                        .setContentText("Eh")
-                        .setContentTitle("meh") //TODO make pretty
+                        .setContentText("On Duty")
+                        .setContentTitle("Sacrifice your life in the line of duty") //TODO make pretty
+                        .setSmallIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_shield))
                         .setContentIntent(PendingIntent.getActivity(this,0,new Intent(this,Sauce.class),PendingIntent.FLAG_ONE_SHOT))
                         .build();
                 startForeground(68, notification);
             }
-            FirebaseFirestore.getInstance().collection("OnlineList")
-                    .document("OnlineList")
-                    .
+
         }
         else if(intent.getAction().equals(Doms.COP_OFFLINE)){
             map= new HashMap<>();
@@ -134,12 +145,10 @@ public class LocationServiceYo extends Service implements LocationListener, OnCo
         geoPoint = new GeoPoint(location.getLatitude(),location.getLongitude());
         map.put(Timestamp.now().toString(),geoPoint);
         if(serviceType==1) {
+            //FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
+              //      .update(map);
             FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
-                    .update(map);
-            FirebaseFirestore.getInstance().collection("emergencies").document(GoogleSignIn.getLastSignedInAccount(this).getEmail())
-                    .collection("latest")
-                    .document("location")
-                    .set(new Err(geoPoint));
+                    .set(new EmergencyModel(geoPoint,false,true,"some","some"));
         }
         else{
             FirebaseFirestore.getInstance().collection("OnlineList")
